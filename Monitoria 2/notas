@@ -1,0 +1,3 @@
+horas = bytes("deverá responder com a hora atual do sistema.")
+ano = bytes("Segundo o calendário chinês, estamos no Ano do Boi.")
+xau = bytes("Adeus")
