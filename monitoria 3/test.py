@@ -1,4 +1,2 @@
-import socket
-
-ip= socket.get()
-print(ip)
+import time
+print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))

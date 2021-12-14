@@ -1,15 +1,38 @@
 import socket
+import threading
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('0.0.0.0', 31415)) #sem função APARENTEMENTE
-s.connect(('localhost', 50000))#conectado a [1] pela porta [2]
+# Choosing Nickname
+nickname = input("Choose your nickname: ")
 
-msg = input()
+# Connecting To Server
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(('127.0.0.1', 55555))
 
-while msg != 'quit':
-    s.sendall(bytes(msg,'utf-8'))
-    data = s.recv(1024)
-    print('received ' + repr(data))
-    msg = input()
+# Listening to Server and Sending Nickname
+def receive():
+    while True:
+        try:
+            # Receive Message From Server
+            # If 'NICK' Send Nickname
+            message = client.recv(1024).decode('ascii')
+            if message == 'NICK':
+                client.send(nickname.encode('ascii'))
+            else:
+                print(message)
+        except:
+            # Close Connection When Error
+            print("An error occured!")
+            client.close()
+            break
 
-s.close()
+# Sending Messages To Server
+def write():
+    while True:
+        message = '{}: {}'.format(nickname, input(''))
+        client.send(message.encode('ascii'))
+
+receive_thread = threading.Thread(target=receive)
+receive_thread.start()
+
+write_thread = threading.Thread(target=write)
+write_thread.start()

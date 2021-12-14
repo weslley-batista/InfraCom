@@ -16,6 +16,7 @@ while 1:
             address = addressPair[1]
             
             conexoesCliente.append(address)
+            print("Cliente conectado (", address[0],address[1], ")")
         
         #separando endereço e enviando mensagem de conexão aos clientes
         cliente1 = conexoesCliente.pop()

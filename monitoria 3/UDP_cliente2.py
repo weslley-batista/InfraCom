@@ -1,13 +1,14 @@
 import socket
 import sys #funcionalidades do sistema
 import threading
+import time
 
 #ipCliente2 = ('147.182.184.215', 55555)
 ipCliente2 = ('localhost', 55555)
 portafonte = 50002
 
 socket_cliente2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-socket_cliente2.bind(('0.0.0.0', portafonte))
+socket_cliente2.bind(('localhost', portafonte))
 socket_cliente2.sendto(b'0', ipCliente2)
 
 while 1:
@@ -26,26 +27,26 @@ print('Porta de origem: {}'.format(sourcePort))
 print('Porta destino:   {}\n'.format(destPort))
 
 #p2p
-socket_cliente2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-socket_cliente2.bind(('0.0.0.0', sourcePort))
-socket_cliente2.sendto(b'0', (ip, destPort))
+socket_cliente2.sendto(b'0', (ip, sourcePort))
 
-#thread listen
+#listener colocar data e nome no print
 def listen():
-    socket_cliente2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    socket_cliente2.bind(('localhost', sourcePort))
+    while 1:
+        #dataHora = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        msgClient = socket_cliente2.recv(1024)
+        print('cliente 1: {}\n'.format(msgClient.decode()))
+        
 
-    while True:
-        data = socket_cliente2.recv(1024)
-        print('\rpeer: {}\n> '.format(data.decode()), end='')
-
-listener = threading.Thread(target=listen, daemon=True);
+listener = threading.Thread(target=listen)
 listener.start()
 
-#socket pra envio
-socket_cliente2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-socket_cliente2.bind(('localhost', destPort))
+#send
+def send():
+    while 1:
+        dataHora = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        dataHora = str(dataHora)
+        msgSend = input(dataHora +' > ')
+        socket_cliente2.sendto(msgSend.encode(), (ip, sourcePort))
 
-while 1:
-    msg = input('> ')
-    socket_cliente2.sendto(msg.encode(), (ip, sourcePort))
+enviando = threading.Thread(target=send)
+enviando.start()
