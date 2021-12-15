@@ -38,7 +38,7 @@ def listen():
         dataHora = str(dataHora)
 
         msgClient = socket_cliente2.recv(1024)
-        print(dataHora + 'cliente 1: {}\n'.format(msgClient.decode()))
+        print(dataHora + '| cliente 1: {}\n'.format(msgClient.decode()))
 
         if msgClient!=b'mensagem recebida com sucesso no cliente 1':
             socket_cliente2.sendto(b'mensagem recebida com sucesso no cliente 2', (ip, sourcePort))
@@ -54,7 +54,7 @@ def send():
         dataHora = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         dataHora = str(dataHora)
 
-        msgSend = input('{}'.format(countMsg) + ' ' + dataHora +' > ')
+        msgSend = input('{}'.format(countMsg) + ' ' +' > ')
         socket_cliente2.sendto(msgSend.encode(), (ip, sourcePort))
 
 enviando = threading.Thread(target=send)
