@@ -32,10 +32,16 @@ socket_cliente2.sendto(b'0', (ip, sourcePort))
 
 #listener colocar data e nome no print
 def listen():
+    countCheck = 0
     while 1:
+        dataHora = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        dataHora = str(dataHora)
+
         msgClient = socket_cliente2.recv(1024)
-        print('cliente 1: {}\n'.format(msgClient.decode()))
-        #socket_cliente2.sendto(b'mensagem recebida com sucesso', (ip,sourcePort))
+        print(dataHora + 'cliente 1: {}\n'.format(msgClient.decode()))
+
+        if msgClient!=b'mensagem recebida com sucesso no cliente 1':
+            socket_cliente2.sendto(b'mensagem recebida com sucesso no cliente 2', (ip, sourcePort))
 
 listener = threading.Thread(target=listen)
 listener.start()

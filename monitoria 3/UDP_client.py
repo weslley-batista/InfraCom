@@ -34,9 +34,15 @@ msgCheck = "mensagem recebida com sucesso"
 #listener colocar data e nome no print
 def listen():
     while 1:
+        dataHora = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        dataHora = str(dataHora)
+
         msgClient = socket_cliente1.recv(1024)
-        print('cliente 2: {}\n'.format(msgClient.decode()))
-        #socket_cliente1.sendto(b'mensagem recebida com sucesso', (ip, sourcePort))
+        print(dataHora + 'cliente 2: {}\n'.format(msgClient.decode()))
+
+        if msgClient!=b'mensagem recebida com sucesso no cliente 2':
+            socket_cliente1.sendto(b'mensagem recebida com sucesso no cliente 1', (ip, sourcePort))
+            
 
 listener = threading.Thread(target=listen)
 listener.start()
