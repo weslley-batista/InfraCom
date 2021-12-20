@@ -5,11 +5,11 @@ import datetime as dt
 localPort = 55555 #porta
 portEnvio = 1080
 bufferSize = 1024
-#endPortaEnvio = ('45.6.136.180',1080) #ip e porta do roteador cliente
-endPortaEnvio = ('localhost',50001) #ip e porta do roteador cliente
+#endPortaEnvio = ('45.6.136.180',1080) #ip e porta do roteador cliente (weslley)
+endPortaEnvio = ('localhost',50001) #ip e porta do roteador cliente (local)
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-#UDPServerSocket.bind(('192.168.1.7',localPort)) #ip local e porta para receber dados
+#UDPServerSocket.bind(('192.168.1.7',localPort)) #ip local e porta para receber dados (maquina)
 UDPServerSocket.bind(('localhost',50000)) #ip local e porta para receber dados(local)
 print("O servidor UDP está pronto")
 

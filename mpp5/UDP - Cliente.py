@@ -31,7 +31,7 @@ def envia():
                     break
 def recebe():
     #UDPClientSocket.bind(('192.168.1.110', 34942)) #porta para receber mensagem do servidor
-    UDPClientSocket.bind(('localhost', 50001)) #porta para receber mensagem do servidor
+    UDPClientSocket.bind(('localhost', 50001)) #porta para receber mensagem do servidor (local)
     countAck=0
     while True:
         msgServidor = UDPClientSocket.recvfrom(1024)
