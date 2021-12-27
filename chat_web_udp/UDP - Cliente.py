@@ -4,9 +4,10 @@ from typing import ByteString
 import threading
 import time
 
-serverAddressPort = ('201.59.169.4', 50005) #colocar ip do servidor e porta, configurados no roteador-servidor (julio)
+#serverAddressPort = ('201.59.169.4', 50005) #colocar ip do servidor e porta, configurados no roteador-servidor (julio)
 #serverAddressPort = ('45.166.51.58', 1317) #colocar ip do servidor e porta, configurados no roteador-servidor (pedro)
 #serverAddressPort = ('localhost', 50000) #colocar ip do servidor e porta, configurados no roteador-servidor (local)
+serverAddressPort = ('45.71.168.217', 55837)
 
 bufferSize = 1024
 UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
